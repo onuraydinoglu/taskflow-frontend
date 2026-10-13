@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Plus, Pencil, Trash2, Search, RotateCcw } from "lucide-react";
 import TaskModal from "../components/ui/TaskModal";
 import ConfirmModal from "../components/ui/ConfirmModal";
 import Toast from "../components/ui/Toast";
@@ -95,21 +96,28 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
         <button
           type="button"
           onClick={handleAdd}
-          className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700"
+          className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700"
         >
-          + Yeni Görev
+          <Plus size={18} />
+          Yeni Görev
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <input
-          type="text"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Görev ara..."
-          aria-label="Görev ara"
-          className="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-violet-500"
-        />
+        <div className="relative">
+          <Search
+            size={17}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          />
+          <input
+            type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Görev ara..."
+            aria-label="Görev ara"
+            className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-10 pr-4 text-sm outline-none focus:border-violet-500"
+          />
+        </div>
 
         <select
           value={statusFilter}
@@ -157,8 +165,9 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
             <button
               type="button"
               onClick={clearFilters}
-              className="text-sm font-medium text-violet-600 hover:text-violet-700"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-violet-600 hover:text-violet-700"
             >
+              <RotateCcw size={15} />
               Filtreleri Temizle
             </button>
           </div>
@@ -220,20 +229,7 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
                         onClick={() => handleEdit(task)}
                         className="inline-flex items-center gap-1.5 rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs font-medium text-violet-700 transition hover:bg-violet-100"
                       >
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path d="M12 20h9" />
-                          <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
-                        </svg>
+                        <Pencil size={14} />
                         Düzenle
                       </button>
 
@@ -242,23 +238,7 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
                         onClick={() => handleDelete(task)}
                         className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-700 transition hover:bg-red-100"
                       >
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path d="M3 6h18" />
-                          <path d="M8 6V4h8v2" />
-                          <path d="M19 6l-1 14H6L5 6" />
-                          <path d="M10 11v5" />
-                          <path d="M14 11v5" />
-                        </svg>
+                        <Trash2 size={14} />
                         Sil
                       </button>
                     </div>
