@@ -17,6 +17,7 @@ Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. Re
 - Tarihe göre sıralama
 - Form validasyonları ve hata mesajları
 - Başarılı işlemler için Toast bildirimleri
+- Lucide React ile modern ve tutarlı ikon kullanımı
 - LocalStorage ile verileri saklama
 - Responsive tasarım
 
@@ -29,6 +30,7 @@ Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. Re
 | Vite | Proje geliştirme ve derleme |
 | Tailwind CSS | Arayüz tasarımı |
 | React Router | Sayfa yönlendirmeleri |
+| Lucide React | Uygulama ikonları |
 | LocalStorage | Tarayıcıda veri saklama |
 | Git & GitHub | Versiyon kontrolü |
 
