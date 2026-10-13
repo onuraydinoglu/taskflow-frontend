@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { validateTask } from "../../validations/taskValidation";
 
 const initialForm = {
   title: "",
@@ -10,6 +11,7 @@ const initialForm = {
 
 function TaskModal({ task, onClose, onSave }) {
   const [form, setForm] = useState(task || initialForm);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,6 +19,11 @@ function TaskModal({ task, onClose, onSave }) {
     setForm((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
     }));
   };
 
@@ -30,11 +37,11 @@ function TaskModal({ task, onClose, onSave }) {
       assignee: form.assignee.trim(),
     };
 
-    if (
-      !updatedForm.title ||
-      !updatedForm.description ||
-      !updatedForm.assignee
-    ) {
+    const validationErrors = validateTask(updatedForm);
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
@@ -68,7 +75,7 @@ function TaskModal({ task, onClose, onSave }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} noValidate className="space-y-4">
           <div>
             <label
               htmlFor="task-title"
@@ -76,17 +83,29 @@ function TaskModal({ task, onClose, onSave }) {
             >
               Görev Başlığı
             </label>
+
             <input
               id="task-title"
               name="title"
               value={form.title}
               onChange={handleChange}
-              required
-              maxLength={150}
+              maxLength={110}
               autoFocus
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-violet-500"
+              aria-invalid={Boolean(errors.title)}
+              aria-describedby={errors.title ? "title-error" : undefined}
+              className={`w-full rounded-lg border px-3 py-2 outline-none ${
+                errors.title
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-300 focus:border-violet-500"
+              }`}
               placeholder="Görev başlığını girin"
             />
+
+            {errors.title && (
+              <p id="title-error" className="mt-1 text-xs text-red-600">
+                {errors.title}
+              </p>
+            )}
           </div>
 
           <div>
@@ -96,16 +115,31 @@ function TaskModal({ task, onClose, onSave }) {
             >
               Açıklama
             </label>
+
             <textarea
               id="task-description"
               name="description"
               value={form.description}
               onChange={handleChange}
-              required
               rows={3}
-              className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-violet-500"
+              maxLength={510}
+              aria-invalid={Boolean(errors.description)}
+              aria-describedby={
+                errors.description ? "description-error" : undefined
+              }
+              className={`w-full resize-none rounded-lg border px-3 py-2 outline-none ${
+                errors.description
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-300 focus:border-violet-500"
+              }`}
               placeholder="Görev açıklamasını girin"
             />
+
+            {errors.description && (
+              <p id="description-error" className="mt-1 text-xs text-red-600">
+                {errors.description}
+              </p>
+            )}
           </div>
 
           <div>
@@ -115,15 +149,28 @@ function TaskModal({ task, onClose, onSave }) {
             >
               Sorumlu Kişi
             </label>
+
             <input
               id="task-assignee"
               name="assignee"
               value={form.assignee}
               onChange={handleChange}
-              required
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-violet-500"
+              maxLength={60}
+              aria-invalid={Boolean(errors.assignee)}
+              aria-describedby={errors.assignee ? "assignee-error" : undefined}
+              className={`w-full rounded-lg border px-3 py-2 outline-none ${
+                errors.assignee
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-300 focus:border-violet-500"
+              }`}
               placeholder="Sorumlu kişinin adı"
             />
+
+            {errors.assignee && (
+              <p id="assignee-error" className="mt-1 text-xs text-red-600">
+                {errors.assignee}
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -134,17 +181,27 @@ function TaskModal({ task, onClose, onSave }) {
               >
                 Öncelik
               </label>
+
               <select
                 id="task-priority"
                 name="priority"
                 value={form.priority}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-violet-500"
+                aria-invalid={Boolean(errors.priority)}
+                className={`w-full rounded-lg border px-3 py-2 outline-none ${
+                  errors.priority
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-violet-500"
+                }`}
               >
                 <option value="low">Düşük</option>
                 <option value="medium">Orta</option>
                 <option value="high">Yüksek</option>
               </select>
+
+              {errors.priority && (
+                <p className="mt-1 text-xs text-red-600">{errors.priority}</p>
+              )}
             </div>
 
             <div>
@@ -154,16 +211,26 @@ function TaskModal({ task, onClose, onSave }) {
               >
                 Durum
               </label>
+
               <select
                 id="task-status"
                 name="status"
                 value={form.status}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-violet-500"
+                aria-invalid={Boolean(errors.status)}
+                className={`w-full rounded-lg border px-3 py-2 outline-none ${
+                  errors.status
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-violet-500"
+                }`}
               >
                 <option value="pending">Bekliyor</option>
                 <option value="completed">Tamamlandı</option>
               </select>
+
+              {errors.status && (
+                <p className="mt-1 text-xs text-red-600">{errors.status}</p>
+              )}
             </div>
           </div>
 
