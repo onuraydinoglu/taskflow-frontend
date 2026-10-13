@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import StatCard from "../components/ui/StatCard";
-import tasks from "../data/tasks";
 
-function Dashboard() {
+function Dashboard({ tasks }) {
   const total = tasks.length;
   const pending = tasks.filter((task) => task.status === "pending").length;
   const completed = tasks.filter((task) => task.status === "completed").length;

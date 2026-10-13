@@ -1,4 +1,5 @@
-import tasks from "../data/tasks";
+import { useState } from "react";
+import TaskModal from "../components/ui/TaskModal";
 
 const priorityLabels = {
   low: "Düşük",
@@ -12,14 +13,26 @@ const priorityColors = {
   high: "bg-red-50 text-red-700",
 };
 
-function Tasks() {
+function Tasks({ tasks, onAddTask }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Görevler</h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Tüm görevleri ve güncel durumlarını görüntüleyebilirsin.
-        </p>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Görevler</h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Tüm görevleri ve güncel durumlarını görüntüleyebilirsin.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setIsModalOpen(true)}
+          className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700"
+        >
+          + Yeni Görev
+        </button>
       </div>
 
       <section className="overflow-hidden rounded-xl border border-gray-200 bg-white">
@@ -89,6 +102,10 @@ function Tasks() {
           </div>
         )}
       </section>
+
+      {isModalOpen && (
+        <TaskModal onClose={() => setIsModalOpen(false)} onSave={onAddTask} />
+      )}
     </div>
   );
 }
