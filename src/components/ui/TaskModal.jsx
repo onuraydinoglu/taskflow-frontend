@@ -8,8 +8,8 @@ const initialForm = {
   status: "pending",
 };
 
-function TaskModal({ onClose, onSave }) {
-  const [form, setForm] = useState(initialForm);
+function TaskModal({ task, onClose, onSave }) {
+  const [form, setForm] = useState(task || initialForm);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,18 +23,22 @@ function TaskModal({ onClose, onSave }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const task = {
+    const updatedForm = {
       ...form,
       title: form.title.trim(),
       description: form.description.trim(),
       assignee: form.assignee.trim(),
     };
 
-    if (!task.title || !task.description || !task.assignee) {
+    if (
+      !updatedForm.title ||
+      !updatedForm.description ||
+      !updatedForm.assignee
+    ) {
       return;
     }
 
-    onSave(task);
+    onSave(updatedForm);
     onClose();
   };
 
@@ -44,14 +48,14 @@ function TaskModal({ onClose, onSave }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-modal-title"
-        className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl"
       >
         <div className="mb-6 flex items-center justify-between">
           <h2
             id="task-modal-title"
             className="text-xl font-semibold text-gray-900"
           >
-            Yeni Görev Ekle
+            {task ? "Görevi Düzenle" : "Yeni Görev Ekle"}
           </h2>
 
           <button
@@ -176,7 +180,7 @@ function TaskModal({ onClose, onSave }) {
               type="submit"
               className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
             >
-              Görevi Kaydet
+              {task ? "Değişiklikleri Kaydet" : "Görevi Kaydet"}
             </button>
           </div>
         </form>

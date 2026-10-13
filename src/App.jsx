@@ -21,6 +21,16 @@ function App() {
     ]);
   };
 
+  const updateTask = (updatedTask) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
+    );
+  };
+
+  const deleteTask = (id) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -29,7 +39,14 @@ function App() {
           <Route path="/dashboard" element={<Dashboard tasks={tasks} />} />
           <Route
             path="/tasks"
-            element={<Tasks tasks={tasks} onAddTask={addTask} />}
+            element={
+              <Tasks
+                tasks={tasks}
+                onAddTask={addTask}
+                onUpdateTask={updateTask}
+                onDeleteTask={deleteTask}
+              />
+            }
           />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>

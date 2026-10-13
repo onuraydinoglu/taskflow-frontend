@@ -13,8 +13,37 @@ const priorityColors = {
   high: "bg-red-50 text-red-700",
 };
 
-function Tasks({ tasks, onAddTask }) {
+function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleAdd = () => {
+    setSelectedTask(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEdit = (task) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (id) => {
+    const confirmed = window.confirm(
+      "Bu görevi silmek istediğinize emin misiniz?",
+    );
+
+    if (confirmed) {
+      onDeleteTask(id);
+    }
+  };
+
+  const handleSave = (task) => {
+    if (selectedTask) {
+      onUpdateTask(task);
+    } else {
+      onAddTask(task);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -28,7 +57,7 @@ function Tasks({ tasks, onAddTask }) {
 
         <button
           type="button"
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleAdd}
           className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700"
         >
           + Yeni Görev
@@ -44,7 +73,7 @@ function Tasks({ tasks, onAddTask }) {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-175 text-left text-sm">
+          <table className="w-full min-w-200 text-left text-sm">
             <thead className="bg-gray-50 text-xs text-gray-500">
               <tr>
                 <th className="px-5 py-4 font-medium">Görev</th>
@@ -52,6 +81,7 @@ function Tasks({ tasks, onAddTask }) {
                 <th className="px-5 py-4 font-medium">Öncelik</th>
                 <th className="px-5 py-4 font-medium">Durum</th>
                 <th className="px-5 py-4 font-medium">Tarih</th>
+                <th className="px-5 py-4 font-medium">İşlemler</th>
               </tr>
             </thead>
 
@@ -90,6 +120,26 @@ function Tasks({ tasks, onAddTask }) {
                   <td className="whitespace-nowrap px-5 py-4 text-gray-500">
                     {new Date(task.createdAt).toLocaleDateString("tr-TR")}
                   </td>
+
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => handleEdit(task)}
+                        className="font-medium text-violet-600 hover:text-violet-800"
+                      >
+                        Düzenle
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(task.id)}
+                        className="font-medium text-red-600 hover:text-red-800"
+                      >
+                        Sil
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -104,7 +154,11 @@ function Tasks({ tasks, onAddTask }) {
       </section>
 
       {isModalOpen && (
-        <TaskModal onClose={() => setIsModalOpen(false)} onSave={onAddTask} />
+        <TaskModal
+          task={selectedTask}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSave}
+        />
       )}
     </div>
   );
