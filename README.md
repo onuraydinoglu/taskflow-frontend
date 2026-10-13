@@ -111,30 +111,6 @@ Projeyi başlatın:
 npm run dev
 ```
 
-Terminalde gösterilen yerel adres üzerinden uygulamayı açabilirsiniz.
-
-## Kullanılabilir Komutlar
-
-```bash
-npm run dev
-```
-Geliştirme sunucusunu başlatır.
-
-```bash
-npm run build
-```
-Üretim için proje derlemesini oluşturur.
-
-```bash
-npm run preview
-```
-Üretim derlemesini yerel ortamda görüntüler.
-
-```bash
-npm run lint
-```
-ESLint kontrollerini çalıştırır.
-
 ## Veri Saklama
 
 TaskFlow uygulamasında backend veya veritabanı bağlantısı bulunmamaktadır.
@@ -163,16 +139,4 @@ Hatalı alanlarda kullanıcıya açıklayıcı mesajlar gösterilmektedir.
 
 Dashboard ve Görevler ekranlarının görselleri daha sonra eklenecektir.
 
-## Geliştirici
-
-**Onur Aydınoğlu**
-
-GitHub: [github.com/onuraydinoglu](https://github.com/onuraydinoglu)
-
-## Proje
-
 [TaskFlow Frontend GitHub Reposu](https://github.com/onuraydinoglu/taskflow-frontend)
-
-## Lisans
-
-Bu proje eğitim amacıyla geliştirilmiştir. Henüz bir lisans dosyası eklenmemiştir.
