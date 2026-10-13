@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TaskModal from "../components/ui/TaskModal";
 import ConfirmModal from "../components/ui/ConfirmModal";
+import Toast from "../components/ui/Toast";
 
 const priorityLabels = {
   low: "Düşük",
@@ -18,6 +19,7 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const [toast, setToast] = useState(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -41,14 +43,17 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
     if (taskToDelete) {
       onDeleteTask(taskToDelete.id);
       setTaskToDelete(null);
+      setToast({ message: "Görev başarıyla silindi!" });
     }
   };
 
   const handleSave = (task) => {
     if (selectedTask) {
       onUpdateTask(task);
+      setToast({ message: "Görev başarıyla güncellendi!" });
     } else {
       onAddTask(task);
+      setToast({ message: "Görev başarıyla eklendi!" });
     }
   };
 
@@ -287,6 +292,10 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
           onClose={() => setTaskToDelete(null)}
           onConfirm={confirmDelete}
         />
+      )}
+
+      {toast && (
+        <Toast message={toast.message} onClose={() => setToast(null)} />
       )}
     </div>
   );
