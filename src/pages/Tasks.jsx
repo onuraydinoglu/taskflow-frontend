@@ -157,7 +157,7 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-200 text-left text-sm">
+          <table className="w-full min-w-225 text-left text-sm">
             <thead className="bg-gray-50 text-xs text-gray-500">
               <tr>
                 <th className="px-5 py-4 font-medium">Görev</th>
@@ -206,20 +206,53 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
                   </td>
 
                   <td className="px-5 py-4">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleEdit(task)}
-                        className="font-medium text-violet-600 hover:text-violet-800"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs font-medium text-violet-700 transition hover:bg-violet-100"
                       >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 20h9" />
+                          <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                        </svg>
                         Düzenle
                       </button>
 
                       <button
                         type="button"
                         onClick={() => handleDelete(task.id)}
-                        className="font-medium text-red-600 hover:text-red-800"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-700 transition hover:bg-red-100"
                       >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M3 6h18" />
+                          <path d="M8 6V4h8v2" />
+                          <path d="M19 6l-1 14H6L5 6" />
+                          <path d="M10 11v5" />
+                          <path d="M14 11v5" />
+                        </svg>
                         Sil
                       </button>
                     </div>
