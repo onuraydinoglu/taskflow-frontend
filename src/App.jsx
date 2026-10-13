@@ -1,8 +1,20 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import DashboardLayout from "./components/DashboardLayout";
+import Dashboard from "./pages/Dashboard";
+import Tasks from "./pages/Tasks";
+
 function App() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-50">
-      <h1 className="text-3xl font-bold text-violet-600">TaskFlow</h1>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<DashboardLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
