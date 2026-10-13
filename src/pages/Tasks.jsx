@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TaskModal from "../components/ui/TaskModal";
+import ConfirmModal from "../components/ui/ConfirmModal";
 
 const priorityLabels = {
   low: "Düşük",
@@ -16,6 +17,7 @@ const priorityColors = {
 function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [taskToDelete, setTaskToDelete] = useState(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -31,13 +33,14 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id) => {
-    const confirmed = window.confirm(
-      "Bu görevi silmek istediğinize emin misiniz?",
-    );
+  const handleDelete = (task) => {
+    setTaskToDelete(task);
+  };
 
-    if (confirmed) {
-      onDeleteTask(id);
+  const confirmDelete = () => {
+    if (taskToDelete) {
+      onDeleteTask(taskToDelete.id);
+      setTaskToDelete(null);
     }
   };
 
@@ -213,7 +216,6 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
                         className="inline-flex items-center gap-1.5 rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs font-medium text-violet-700 transition hover:bg-violet-100"
                       >
                         <svg
-                          xmlns="http://www.w3.org/2000/svg"
                           width="14"
                           height="14"
                           viewBox="0 0 24 24"
@@ -232,11 +234,10 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
 
                       <button
                         type="button"
-                        onClick={() => handleDelete(task.id)}
+                        onClick={() => handleDelete(task)}
                         className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-700 transition hover:bg-red-100"
                       >
                         <svg
-                          xmlns="http://www.w3.org/2000/svg"
                           width="14"
                           height="14"
                           viewBox="0 0 24 24"
@@ -277,6 +278,14 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
           task={selectedTask}
           onClose={() => setIsModalOpen(false)}
           onSave={handleSave}
+        />
+      )}
+
+      {taskToDelete && (
+        <ConfirmModal
+          task={taskToDelete}
+          onClose={() => setTaskToDelete(null)}
+          onConfirm={confirmDelete}
         />
       )}
     </div>
