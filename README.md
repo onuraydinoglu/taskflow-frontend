@@ -166,10 +166,22 @@ Validasyon işlemleri `src/validations/taskValidation.js` dosyasında bulunmakta
 
 Hatalı alanlarda kullanıcıya açıklayıcı mesajlar gösterilmektedir.
 
+
 ## Ekran Görüntüleri
 
-Dashboard ve Görevler ekranlarının görselleri daha sonra eklenecektir.
+![Ekran Görüntüsü 1](screenshots/1.png)
 
-## GitHub
+![Ekran Görüntüsü 2](screenshots/2.png)
 
-[TaskFlow Frontend GitHub Reposu](https://github.com/onuraydinoglu/taskflow-frontend)
+![Ekran Görüntüsü 3](screenshots/3.png)
+
+![Ekran Görüntüsü 4](screenshots/4.png)
+
+![Ekran Görüntüsü 5](screenshots/5.png)
+
+![Ekran Görüntüsü 6](screenshots/6.png)
+
+![Ekran Görüntüsü 7](screenshots/7.png)
+
+![Ekran Görüntüsü 8](screenshots/8.png)
+
