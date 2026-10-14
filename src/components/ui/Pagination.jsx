@@ -14,6 +14,15 @@ function Pagination({
   const start = (currentPage - 1) * pageSize + 1;
   const end = Math.min(currentPage * pageSize, totalItems);
 
+  const handlePageChange = (page) => {
+    onPageChange(page);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 px-5 py-4">
       <p className="text-sm text-gray-500">
@@ -23,7 +32,7 @@ function Pagination({
       <nav aria-label="Sayfalama" className="flex flex-wrap items-center gap-2">
         <button
           type="button"
-          onClick={() => onPageChange(currentPage - 1)}
+          onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className="inline-flex items-center gap-1 rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
@@ -38,7 +47,7 @@ function Pagination({
             <button
               key={page}
               type="button"
-              onClick={() => onPageChange(page)}
+              onClick={() => handlePageChange(page)}
               aria-label={`Sayfa ${page}`}
               aria-current={currentPage === page ? "page" : undefined}
               className={`h-9 min-w-9 rounded-lg px-2 text-sm font-medium transition ${
@@ -54,7 +63,7 @@ function Pagination({
 
         <button
           type="button"
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className="inline-flex items-center gap-1 rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
