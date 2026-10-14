@@ -5,6 +5,18 @@ TaskFlow, React ve JavaScript kullanılarak geliştirilmiş modern ve kullanıc�
 
 Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. React ile CRUD işlemleri, state yönetimi, form validasyonu, sayfalama ve LocalStorage kullanımını öğrenmek amacıyla geliştirilmiştir.
 
+# TaskFlow - Görev Yönetim Uygulaması
+
+TaskFlow, React ve JavaScript kullanılarak geliştirilmiş modern ve kullanıcı dostu bir görev yönetim uygulamasıdır.
+
+Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. React ile CRUD işlemleri, state yönetimi, form validasyonu, sayfalama ve LocalStorage kullanımını öğrenmek amacıyla geliştirilmiştir.
+
+## Canlı Demo
+
+TaskFlow uygulamasını aşağıdaki bağlantıdan inceleyebilirsiniz:
+
+[TaskFlow - Canlı Uygulamayı Aç](https://taskflow-frontend-alpha-seven.vercel.app/dashboard)
+
 ## Özellikler
 
 - Dashboard üzerinden görev istatistiklerini görüntüleme
@@ -36,6 +48,7 @@ Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. Re
 | Lucide React | Uygulama ikonları |
 | LocalStorage | Tarayıcıda veri saklama |
 | Git & GitHub | Versiyon kontrolü |
+| Vercel | Uygulamanın yayınlanması |
 
 ## Uygulama Ekranları
 
