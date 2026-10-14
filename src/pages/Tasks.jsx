@@ -3,6 +3,8 @@ import { Plus, Pencil, Trash2, Search, RotateCcw } from "lucide-react";
 import TaskModal from "../components/ui/TaskModal";
 import ConfirmModal from "../components/ui/ConfirmModal";
 import Toast from "../components/ui/Toast";
+import Pagination from "../components/ui/Pagination";
+import { paginate } from "../utils/pagination";
 
 const priorityLabels = {
   low: "Düşük",
@@ -25,6 +27,9 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("newest");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pageSize = 10;
 
   const handleAdd = () => {
     setSelectedTask(null);
@@ -76,11 +81,14 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
         : new Date(a.createdAt) - new Date(b.createdAt),
     );
 
+  const pagination = paginate(filteredTasks, currentPage, pageSize);
+
   const clearFilters = () => {
     setSearch("");
     setStatusFilter("all");
     setPriorityFilter("all");
     setSortOrder("newest");
+    setCurrentPage(1);
   };
 
   return (
@@ -109,10 +117,14 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
             size={17}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
           />
+
           <input
             type="text"
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              setCurrentPage(1);
+            }}
             placeholder="Görev ara..."
             aria-label="Görev ara"
             className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-10 pr-4 text-sm outline-none focus:border-violet-500"
@@ -121,7 +133,10 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
 
         <select
           value={statusFilter}
-          onChange={(event) => setStatusFilter(event.target.value)}
+          onChange={(event) => {
+            setStatusFilter(event.target.value);
+            setCurrentPage(1);
+          }}
           aria-label="Duruma göre filtrele"
           className="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-violet-500"
         >
@@ -132,7 +147,10 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
 
         <select
           value={priorityFilter}
-          onChange={(event) => setPriorityFilter(event.target.value)}
+          onChange={(event) => {
+            setPriorityFilter(event.target.value);
+            setCurrentPage(1);
+          }}
           aria-label="Önceliğe göre filtrele"
           className="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-violet-500"
         >
@@ -144,7 +162,10 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
 
         <select
           value={sortOrder}
-          onChange={(event) => setSortOrder(event.target.value)}
+          onChange={(event) => {
+            setSortOrder(event.target.value);
+            setCurrentPage(1);
+          }}
           aria-label="Tarihe göre sırala"
           className="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-violet-500"
         >
@@ -159,7 +180,7 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
 
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-gray-500">
-              {filteredTasks.length} / {tasks.length} görev gösteriliyor
+              {filteredTasks.length} / {tasks.length} görev bulundu
             </p>
 
             <button
@@ -187,7 +208,7 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
             </thead>
 
             <tbody className="divide-y divide-gray-100">
-              {filteredTasks.map((task) => (
+              {pagination.items.map((task) => (
                 <tr key={task.id} className="transition hover:bg-gray-50">
                   <td className="px-5 py-4">
                     <p className="font-medium text-gray-900">{task.title}</p>
@@ -256,6 +277,14 @@ function Tasks({ tasks, onAddTask, onUpdateTask, onDeleteTask }) {
               : "Aramanıza uygun görev bulunamadı."}
           </div>
         )}
+
+        <Pagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          totalItems={filteredTasks.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+        />
       </section>
 
       {isModalOpen && (
