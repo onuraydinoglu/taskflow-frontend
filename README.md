@@ -3,7 +3,7 @@
 
 TaskFlow, React ve JavaScript kullanılarak geliştirilmiş modern ve kullanıcı dostu bir görev yönetim uygulamasıdır.
 
-Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. React ile CRUD işlemleri, state yönetimi, form validasyonu ve LocalStorage kullanımını öğrenmek amacıyla geliştirilmiştir.
+Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. React ile CRUD işlemleri, state yönetimi, form validasyonu, sayfalama ve LocalStorage kullanımını öğrenmek amacıyla geliştirilmiştir.
 
 ## Özellikler
 
@@ -15,6 +15,9 @@ Bu proje, Web Geliştirme JavaScript eğitimi kapsamında hazırlanmıştır. Re
 - Görev başlığına göre arama
 - Durum ve önceliğe göre filtreleme
 - Tarihe göre sıralama
+- Görev tablosunda 10 kayıtlık sayfalama (Pagination)
+- Önceki, Sonraki ve sayfa numaralarıyla gezinme
+- Sayfa geçişlerinde yumuşak kaydırma animasyonu
 - Form validasyonları ve hata mesajları
 - Başarılı işlemler için Toast bildirimleri
 - Lucide React ile modern ve tutarlı ikon kullanımı
@@ -61,6 +64,29 @@ Her görev aşağıdaki bilgileri içerir:
 - Durum
 - Oluşturulma tarihi
 
+### Arama ve Filtreleme
+
+Kullanıcılar görev listesinde:
+
+- Görev başlığına göre arama yapabilir.
+- Bekleyen ve tamamlanan görevleri filtreleyebilir.
+- Düşük, orta ve yüksek öncelikli görevleri filtreleyebilir.
+- Görevleri oluşturulma tarihine göre sıralayabilir.
+- Aktif filtreleri temizleyebilir.
+
+### Sayfalama (Pagination)
+
+Görev tablosunda kayıtlar sayfalara ayrılarak görüntülenir.
+
+- Her sayfada en fazla 10 görev gösterilir.
+- Sayfa numaralarıyla istenilen sayfaya geçilebilir.
+- Önceki ve Sonraki butonları kullanılabilir.
+- Arama veya filtreleme değiştiğinde ilk sayfaya dönülür.
+- Toplam kayıt ve görüntülenen kayıt aralığı gösterilir.
+- Sayfa geçişlerinde yumuşak kaydırma animasyonu kullanılır.
+
+Sayfalama tasarımı `src/components/ui/Pagination.jsx` dosyasında, sayfalama hesaplamaları ise `src/utils/pagination.js` dosyasında bulunmaktadır.
+
 ## Proje Klasör Yapısı
 
 ```text
@@ -72,6 +98,7 @@ src/
 │   │   └── Sidebar.jsx
 │   └── ui/
 │       ├── ConfirmModal.jsx
+│       ├── Pagination.jsx
 │       ├── StatCard.jsx
 │       ├── TaskModal.jsx
 │       └── Toast.jsx
@@ -80,6 +107,8 @@ src/
 ├── pages/
 │   ├── Dashboard.jsx
 │   └── Tasks.jsx
+├── utils/
+│   └── pagination.js
 ├── validations/
 │   └── taskValidation.js
 ├── App.jsx
@@ -140,5 +169,7 @@ Hatalı alanlarda kullanıcıya açıklayıcı mesajlar gösterilmektedir.
 ## Ekran Görüntüleri
 
 Dashboard ve Görevler ekranlarının görselleri daha sonra eklenecektir.
+
+## GitHub
 
 [TaskFlow Frontend GitHub Reposu](https://github.com/onuraydinoglu/taskflow-frontend)
